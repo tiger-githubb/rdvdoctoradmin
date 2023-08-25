@@ -1,0 +1,63 @@
+@startuml user
+
+
+left to right direction
+
+actor Utilisateur as user
+actor "Professionnel de la Santé" as doctor
+actor Administrateur as admin
+
+rectangle "Système de Prise de Rendez-vous Médicaux" as system {
+    
+    user -- (Créer un Compte)
+    user -- (Se Connecter)
+    user -- (Rechercher des Professionnels)
+    user -- (Sélectionner un Professionnel et un Rendez-vous)
+    user -- (Recevoir des Notifications)
+    user -- (Notification de Rendez-vous Confirmé) : include
+    user -- (Annuler un Rendez-vous) : include
+    user -- (Voir Détails d'un Rendez-vous) : include
+    user -- (Recevoir Notifications de Rappel) : include
+
+    doctor -- (Confirmer les Rendez-vous)
+    doctor -- (Gérer la Disponibilité)
+    
+    admin -- (Gérer les Comptes Utilisateurs)
+    admin -- (Gérer les Profils des Professionnels)
+    admin -- (Accéder aux Statistiques)
+    
+    rectangle "Gérer les Rendez-vous" as manage_appointments {
+        user -- (Annuler un Rendez-vous)
+        user -- (Voir Détails d'un Rendez-vous)
+        user -- (Recevoir Notifications de Rappel)
+    }
+
+    rectangle "Confirmer les Rendez-vous" as confirm_appointments {
+        doctor -- (Voir Liste des Rendez-vous)
+        doctor -- (Ajouter Notes Spéciales)
+    }
+
+    rectangle "Gérer les Comptes Utilisateurs" as manage_users {
+        admin -- (Créer un Compte)
+        admin -- (Modifier Informations Comptes)
+        admin -- (Activer/Désactiver Comptes)
+        admin -- (Gérer Rôles et Autorisations)
+    }
+
+    rectangle "Gérer les Profils des Professionnels" as manage_profiles {
+        admin -- (Ajouter Nouveaux Professionnels)
+        admin -- (Mettre à Jour Informations Professionnelles)
+        admin -- (Supprimer Professionnels)
+    }
+
+    rectangle "Accéder aux Statistiques" as access_statistics {
+        admin -- (Visualiser Statistiques d'Utilisation)
+        admin -- (Voir Tendances de Recherche)
+        admin -- (Générer Rapports)
+    }
+
+    (Recevoir Notifications) -- (Notification de Rendez-vous Confirmé) : include
+    (Sélectionner un Professionnel et un Rendez-vous) -- (Recevoir Notifications) : include
+}
+
+@enduml
