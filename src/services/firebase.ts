@@ -1,8 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth"; 
+import 'firebase/auth';
+import { getAuth } from "firebase/auth";
 
-import "firebase/auth";
-
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyD-KAQS3tzcm73ZHBlLUfI_t5R9a5acsQE",
   authDomain: "rdvdoctor-d36a1.firebaseapp.com",
@@ -12,7 +12,9 @@ const firebaseConfig = {
   appId: "1:608032171899:web:9edc8390302cce5c383fde"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-export default app;
 
+export const auth = getAuth();
+
+export default app;

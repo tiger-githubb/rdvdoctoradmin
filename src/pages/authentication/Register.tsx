@@ -1,3 +1,4 @@
+import React, { FC, useState } from 'react';
 import { LoadingButton } from "@mui/lab";
 import {
   Box,
@@ -12,20 +13,20 @@ import {
   SocialIconButton,
   TextFieldWrapper,
 } from "components/authentication/StyledComponents";
+import FacebookIcon from "icons/FacebookIcon";
+import GoogleIcon from "icons/GoogleIcon";
 import FlexBox from "components/FlexBox";
 import LightTextField from "components/LightTextField";
 import { H1, H3, Small } from "components/Typography";
 import { useFormik } from "formik";
-import useAuth from "hooks/useAuth";
-import FacebookIcon from "icons/FacebookIcon";
-import GoogleIcon from "icons/GoogleIcon";
-import { FC, useState } from "react";
-import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as Yup from "yup";
+import toast from "react-hot-toast";
+import { useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../services/firebase';
 
 const Register: FC = () => {
-  const { register } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -37,7 +38,7 @@ const Register: FC = () => {
     terms: true,
     submit: null,
   };
-  // form field value validation schema
+
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
     email: Yup.string()
@@ -53,15 +54,14 @@ const Register: FC = () => {
     useFormik({
       initialValues,
       validationSchema,
-      onSubmit: async (values: any) => {
+      onSubmit: async (values) => {
         setLoading(true);
         try {
-          await register(values.email, values.password, values.name);
+          await createUserWithEmailAndPassword(auth, values.email, values.password);
           setLoading(false);
           toast.success("You registered successfully");
-          navigate("/dashboard");
-        } catch (error: any) {
-          setError(error?.message);
+          navigate("/dashboard"); // Rediriger vers la page appropriée après l'inscription
+        } catch (error) {
           setLoading(false);
         }
       },
@@ -92,18 +92,18 @@ const Register: FC = () => {
         </FlexBox>
 
         <FlexBox justifyContent="space-between" flexWrap="wrap" my="1rem">
-          <SocialIconButton
+          {/* <SocialIconButton
             // onClick={loginWithGoogle}
             startIcon={<GoogleIcon sx={{ mr: "0.5rem" }} />}
           >
             Sign up with Google
-          </SocialIconButton>
-          <SocialIconButton
+          </SocialIconButton> */}
+          {/* <SocialIconButton
             // onClick={loginWithFacebook}
             startIcon={<FacebookIcon sx={{ mr: "0.5rem" }} />}
           >
             Sign up with Facebook
-          </SocialIconButton>
+          </SocialIconButton> */}
 
           <Divider sx={{ my: 3, width: "100%", alignItems: "flex-start" }}>
             <H3 color="text.disabled" px={1}>

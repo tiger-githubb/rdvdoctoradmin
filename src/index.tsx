@@ -8,7 +8,7 @@ import "react-image-lightbox/style.css";
 import { BrowserRouter } from "react-router-dom";
 import "simplebar/dist/simplebar.min.css";
 import App from "./App";
-import firebase from "services/firebase";
+
 
 ReactDOM.render(
   <StrictMode>
