@@ -22,5 +22,5 @@
     "strictNullChecks": true
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx", "next.config.js"]
+  "include": ["**/*.ts", "**/*.tsx", "next.config.js", "testFirebaseConnection.cjs"]
 }
