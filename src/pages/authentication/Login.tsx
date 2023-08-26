@@ -1,4 +1,4 @@
-import { LoadingButton } from "@mui/lab";
+import React, { FC, useState } from 'react';
 import {
   Box,
   Button,
@@ -8,6 +8,7 @@ import {
   FormHelperText,
   Switch,
 } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 import {
   SocialIconButton,
   TextFieldWrapper,
@@ -16,34 +17,32 @@ import FlexBox from "components/FlexBox";
 import LightTextField from "components/LightTextField";
 import { H1, H3, Paragraph, Small } from "components/Typography";
 import { useFormik } from "formik";
-import useAuth from "hooks/useAuth";
 import FacebookIcon from "icons/FacebookIcon";
 import GoogleIcon from "icons/GoogleIcon";
-import { FC, useState } from "react";
-import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as Yup from "yup";
+import toast from "react-hot-toast";
+import { useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../services/firebase';
 
 const Login: FC = () => {
-  const { login } = useAuth();
+  const navigate = useNavigate();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  let navigate = useNavigate();
 
   const initialValues = {
-    email: "demo@example.com",
-    password: "v&)3?2]:",
+    email: "",
+    password: "",
     submit: null,
-    remember: true,
   };
-  // form field value validation schema
+
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email("Must be a valid email")
       .max(255)
       .required("Email is required"),
     password: Yup.string()
-      .min(6, "Password should be of minimum 6 characters length")
       .required("Password is required"),
   });
 
@@ -51,18 +50,17 @@ const Login: FC = () => {
     useFormik({
       initialValues,
       validationSchema,
-      onSubmit: (values: any) => {
+      onSubmit: async (values) => {
         setLoading(true);
-        login(values.email, values.password)
-          .then(() => {
-            setLoading(false);
-            toast.success("You Logged In Successfully test");
-            navigate("/dashboard");
-          })
-          .catch((error) => {
-            setError(error.message);
-            setLoading(false);
-          });
+        try {
+          await signInWithEmailAndPassword(auth, values.email, values.password);
+          setLoading(false);
+          toast.success("Logged in successfully");
+          navigate("/dashboard"); // Rediriger vers la page appropriée après la connexion réussie
+        } catch (error) {
+          // setError(error.message);
+          setLoading(false);
+        }
       },
     });
 
@@ -150,7 +148,6 @@ const Login: FC = () => {
                 control={
                   <Switch
                     name="remember"
-                    checked={values.remember}
                     onChange={handleChange}
                   />
                 }
