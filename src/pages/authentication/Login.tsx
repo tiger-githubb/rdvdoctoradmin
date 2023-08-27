@@ -61,9 +61,9 @@ const Login: FC = () => {
       
           setLoading(false);
           toast.success("Logged in successfully");
-          navigate("/dashboard"); // Rediriger vers la page appropriée après la connexion réussie
+          navigate("/dashboard"); 
         } catch (error) {
-          setError("Invalid email or password"); // Afficher un message d'erreur générique
+          setError("Invalid email or password"); 
           setLoading(false);
         }
       },

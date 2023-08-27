@@ -14,6 +14,7 @@ import LightTextField from "components/LightTextField";
 import { H3, Small, Tiny } from "components/Typography";
 import { useFormik } from "formik";
 import useTitle from "hooks/useTitle";
+import toast from "react-hot-toast";
 import * as Yup from "yup";
 import { db, auth } from "services/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
@@ -147,14 +148,30 @@ const UpdateUserProfile: FC = () => {
           date_of_birth: formValues.date_of_birth,
           profile_image: formValues.profile_image,
         });
-  
-        // Afficher un message de succès ou rediriger l'utilisateur, si nécessaire
-        console.log("Informations mises à jour avec succès !");
+
+        toast.success("Informations mises à jour avec succès !");
+         
       }
     } catch (error) {
       console.error("Erreur lors de la mise à jour des informations :", error);
     }
   };
+
+  const validationSchema = Yup.object().shape({
+    displayName: Yup.string().required('Le nom est requis'),
+    phone_number: Yup.string().required('Le numéro de téléphone est requis'),
+    description: Yup.string().required('La description est requise'),
+    speciality: Yup.string().required('La spécialité est requise'),
+    address: Yup.string().required('L\'adresse est requise'),
+    date_of_birth: Yup.date().required('La date de naissance est requise'),
+    profile_image: Yup.string().url('L\'URL de l\'image de profil n\'est pas valide'),
+  });
+
+  const { values, errors, touched } = useFormik({
+    initialValues,
+    onSubmit: () => {},
+    validationSchema, // Pass the validation schema here
+  });
   
   
 
@@ -295,7 +312,7 @@ const UpdateUserProfile: FC = () => {
 
                   <Grid item xs={12}>
                     <Button type="submit" variant="contained">
-                      Update Profile
+                      Mettre à jour le profile
                     </Button>
                   </Grid>
                 </Grid>
