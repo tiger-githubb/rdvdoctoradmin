@@ -26,6 +26,7 @@ const DashboardSaaS = Loadable(lazy(() => import("./pages/dashboards/SaaS")));
 
 // user profile
 const UserProfile = Loadable(lazy(() => import("./pages/UserProfile")));
+const UpdateUserProfile = Loadable(lazy(() => import("./pages/UpdateProfile")));
 
 // user management
 const UserList = Loadable(
@@ -86,6 +87,10 @@ const routes = [
       {
         path: "user-profile",
         element: <UserProfile />,
+      },
+      {
+        path: "update-profile",
+        element: <UpdateUserProfile/> ,
       },
 
       {
