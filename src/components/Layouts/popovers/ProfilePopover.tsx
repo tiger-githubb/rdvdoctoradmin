@@ -33,6 +33,20 @@ const ProfilePopover: FC = () => {
     setOpen(false);
   };
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+      localStorage.removeItem("token"); // Supprimer le token du local storage
+      toast.error("You Logged Out Successfully");
+      setOpen(false);
+      // Redirigez l'utilisateur vers la page de connexion ou une autre page appropriée après la déconnexion
+      navigate("/login"); // Par exemple, rediriger vers la page de connexion
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
+  
+
   return (
     <Fragment>
       <ButtonBase disableRipple ref={anchorRef} onClick={() => setOpen(true)}>
@@ -98,7 +112,7 @@ const ProfilePopover: FC = () => {
 
           <StyledSmall
             onClick={() => {
-              logout();
+              handleLogout();
               toast.error("You Logout Successfully");
             }}
           >
