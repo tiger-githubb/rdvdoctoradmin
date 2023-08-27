@@ -121,11 +121,7 @@ function UserProfile() {
                ) : (
                 <p>Chargement</p>
               )}
-                
-             
-
             </ContentWrapper>
-
 
             <StyledTabList onChange={handleChange}>
               <StyledTab label="Profile" value="1" />
@@ -136,7 +132,7 @@ function UserProfile() {
 
         <Box marginTop={3}>
           <StyledTabPanel value="1">
-            <Profile />
+            <Profile  userData={userData}/>
           </StyledTabPanel>
 
           <StyledTabPanel value="2">

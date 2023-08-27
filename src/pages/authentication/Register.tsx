@@ -69,7 +69,6 @@ const Register: FC = () => {
             uid: user.uid,
             role: 1, 
             phone_number: '',
-            localisation: '',
             description:'',
             spéciality: '',
             address: '',

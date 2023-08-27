@@ -1,4 +1,4 @@
-import { BusinessCenter, Mail, Place } from "@mui/icons-material";
+import { BusinessCenter, Mail, Place, ContactPhone, CalendarViewDay } from "@mui/icons-material";
 import { Box, Card, Divider, Grid, styled } from "@mui/material";
 import FlexBox from "components/FlexBox";
 import MoreOptions from "components/MoreOptions";
@@ -20,6 +20,10 @@ const IconWrapper = styled(Box)<{ color?: string }>(({ theme, color }) => ({
   backgroundColor: color ? color : theme.palette.primary.main,
 }));
 
+interface ProfileProps {
+  userData: any | null; // Utilisez le type approprié pour les données utilisateur
+}
+
 const FollowWrapper = styled(Box)(() => ({
   maxWidth: 300,
   margin: "auto",
@@ -30,7 +34,7 @@ const FollowWrapper = styled(Box)(() => ({
   justifyContent: "space-between",
 }));
 
-const Profile: FC = () => {
+const Profile: FC<ProfileProps> = ({ userData }) =>  {
   const [moreEl, setMoreEl] = useState<null | HTMLElement>(null);
   const handleMoreOpen = (event: MouseEvent<HTMLButtonElement>) => {
     setMoreEl(event.currentTarget);
@@ -41,28 +45,28 @@ const Profile: FC = () => {
     <Grid container spacing={3}>
       <Grid item md={5} xs={12}>
         <Card>
-
-
           <Divider />
-
+          {userData ? (
           <Box padding={3}>
             <H4 fontWeight={600}>Descirption</H4>
             <Small mt={1} display="block" lineHeight={1.9}>
-              Tart I love sugar plum I love oat cake. Sweet roll caramels I love
-              jujubes. Topping cake wafer..
+            {userData.description || "Non fourni"}
             </Small>
 
             <Box mt={3}>
-              {details.map(({ Icon, smallText, boldText }, index) => (
-                <FlexBox alignItems="center" mt={1.5} key={index}>
-                  <Icon />
-                  <H6 marginLeft={1}>
-                    <Small>{smallText}</Small> {boldText}
-                  </H6>
-                </FlexBox>
-              ))}
+                {details.map(({ Icon, smallText, boldText }, index) => (
+                  <FlexBox alignItems="center" mt={1.5} key={index}>
+                    <Icon />
+                    <H6 marginLeft={1}>
+                      <Small>{smallText}</Small> {userData[boldText.toLowerCase()] || 'Non fourni'}
+                    </H6>
+                  </FlexBox>
+                ))}
+              </Box>
             </Box>
-          </Box>
+          ) : (
+            <p>Chargement...</p>
+          )}
         </Card>
       </Grid>
 
@@ -80,36 +84,31 @@ const Profile: FC = () => {
 const details = [
   {
     Icon: Place,
-    boldText: "Kuwait",
-    smallText: "Lives at",
+    boldText: "address",
+    smallText: "vis à ",
   },
   {
     Icon: Mail,
-    boldText: "",
-    smallText: "Lenore_Rosenbaum@gmail.com",
+    boldText: "email",
+    smallText: "Mail sur ",
   },
   {
-    Icon: BusinessCenter,
-    boldText: "UI_LIB",
-    smallText: "Manager at",
+    Icon: ContactPhone,
+    boldText: "phone_number",
+    smallText: "disponible sur",
   },
   {
-    Icon: BusinessCenter,
-    smallText: "Studied at",
-    boldText: "Corwin - Blick",
+    Icon: CalendarViewDay,
+    smallText: "née le ",
+    boldText: "date_of_birth",
   },
 ];
 
 const postList = [
   {
     id: 1,
-    postTitle: "Coffee and Afternoon",
+    postTitle: "Calandrier",
     postImage: "/static/post-image/post-1.png",
-  },
-  {
-    id: 2,
-    postTitle: "Coffee and Afternoon",
-    postImage: "",
   },
 ];
 
