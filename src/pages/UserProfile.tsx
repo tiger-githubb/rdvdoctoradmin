@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useState, useEffect } from "react";
+import { SyntheticEvent, useState, useEffect } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Card, Grid, styled, Tab } from "@mui/material";
 import FlexBox from "components/FlexBox";

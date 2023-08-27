@@ -25,11 +25,12 @@ import toast from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '../../services/firebase';
-import { collection, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 
 
 const Register: FC = () => {
   const navigate = useNavigate();
+  // eslint-disable-next-line
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 

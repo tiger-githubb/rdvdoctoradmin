@@ -1,14 +1,13 @@
-import { BusinessCenter, Mail, Place, ContactPhone, CalendarViewDay } from "@mui/icons-material";
+import { Mail, Place, ContactPhone, CalendarViewDay } from "@mui/icons-material";
 import { Box, Card, Divider, Grid, styled } from "@mui/material";
 import FlexBox from "components/FlexBox";
 import MoreOptions from "components/MoreOptions";
-import { H3, H4, H6, Small } from "components/Typography";
-import FollowerIcon from "icons/FollowerIcon";
-import UserPlusIcon from "icons/UserPlusIcon";
+import {  H4, H6, Small } from "components/Typography";
 import { FC, MouseEvent, useState } from "react";
 import PostCard from "./PostCard";
 
 // styled components
+// eslint-disable-next-line
 const IconWrapper = styled(Box)<{ color?: string }>(({ theme, color }) => ({
   width: 40,
   height: 40,
@@ -21,9 +20,9 @@ const IconWrapper = styled(Box)<{ color?: string }>(({ theme, color }) => ({
 }));
 
 interface ProfileProps {
-  userData: any | null; // Utilisez le type approprié pour les données utilisateur
+  userData: any | null; 
 }
-
+// eslint-disable-next-line
 const FollowWrapper = styled(Box)(() => ({
   maxWidth: 300,
   margin: "auto",

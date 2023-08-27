@@ -30,6 +30,7 @@ const AuthGuard = ({ children }: AuthGuardProps) => {
       navigate("/dashboard"); 
       
     }
+    // eslint-disable-next-line 
   }, []);
 
   if (!token) {
