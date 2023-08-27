@@ -1,20 +1,18 @@
-import { Favorite, MoreVert, Send } from "@mui/icons-material";
+import  { FC, MouseEvent } from "react";
+import { Favorite, MoreVert} from "@mui/icons-material";
 import {
-  Avatar,
   Box,
-  ButtonBase,
   Card,
   IconButton,
-  InputBase,
   styled,
   useTheme,
 } from "@mui/material";
 import FlexBox from "components/FlexBox";
-import { H5, H6, Small, Tiny } from "components/Typography";
+import { H5 , Small, Tiny } from "components/Typography";
 import CommentIcon from "icons/CommentIcon";
 import ShareIcon from "icons/ShareIcon";
 import UploadIcon from "icons/UploadIcon";
-import React, { FC, MouseEvent } from "react";
+
 
 // component props interface
 interface PostCardProps {
@@ -41,6 +39,7 @@ const PostImageWrapper = styled(Box)(() => ({
 }));
 
 const PostCard: FC<PostCardProps> = ({ post, handleMore }) => {
+  // eslint-disable-next-line
   const theme = useTheme();
   return (
     <Card sx={{ padding: 2, mb: 3 }}>
@@ -96,6 +95,7 @@ const PostCard: FC<PostCardProps> = ({ post, handleMore }) => {
   );
 };
 
+// eslint-disable-next-line
 const postDetails = [
   {
     Icon: Favorite,

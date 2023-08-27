@@ -8,14 +8,11 @@ import {
   Grid,
   IconButton,
   styled,
-  Switch,
 } from "@mui/material";
 import LightTextField from "components/LightTextField";
-import { H3, Small, Tiny } from "components/Typography";
-import { useFormik } from "formik";
+import { H3, Small} from "components/Typography";
 import useTitle from "hooks/useTitle";
 import toast from "react-hot-toast";
-import * as Yup from "yup";
 import { db, auth } from "services/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { updateDoc, doc } from "firebase/firestore";
@@ -49,13 +46,13 @@ const UploadButton = styled(Box)(({ theme }) => ({
       : alpha(theme.palette.background.paper, 0.9),
 }));
 
-const SwitchWrapper = styled(Box)(() => ({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  width: "100%",
-  marginTop: 10,
-}));
+// const SwitchWrapper = styled(Box)(() => ({
+//   display: "flex",
+//   justifyContent: "space-between",
+//   alignItems: "center",
+//   width: "100%",
+//   marginTop: 10,
+// }));
 
 const UpdateUserProfile: FC = () => {
 
@@ -157,21 +154,21 @@ const UpdateUserProfile: FC = () => {
     }
   };
 
-  const validationSchema = Yup.object().shape({
-    displayName: Yup.string().required('Le nom est requis'),
-    phone_number: Yup.string().required('Le numéro de téléphone est requis'),
-    description: Yup.string().required('La description est requise'),
-    speciality: Yup.string().required('La spécialité est requise'),
-    address: Yup.string().required('L\'adresse est requise'),
-    date_of_birth: Yup.date().required('La date de naissance est requise'),
-    profile_image: Yup.string().url('L\'URL de l\'image de profil n\'est pas valide'),
-  });
+  // const validationSchema = Yup.object().shape({
+  //   displayName: Yup.string().required('Le nom est requis'),
+  //   phone_number: Yup.string().required('Le numéro de téléphone est requis'),
+  //   description: Yup.string().required('La description est requise'),
+  //   speciality: Yup.string().required('La spécialité est requise'),
+  //   address: Yup.string().required('L\'adresse est requise'),
+  //   date_of_birth: Yup.date().required('La date de naissance est requise'),
+  //   profile_image: Yup.string().url('L\'URL de l\'image de profil n\'est pas valide'),
+  // });
 
-  const { values, errors, touched } = useFormik({
-    initialValues,
-    onSubmit: () => {},
-    validationSchema, // Pass the validation schema here
-  });
+  // const { values, errors, touched } = useFormik({
+  //   initialValues,
+  //   onSubmit: () => {},
+  //   validationSchema, // Pass the validation schema here
+  // });
   
   
 
