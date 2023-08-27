@@ -2,6 +2,7 @@ import AuthGuard from "components/authentication/AuthGuard";
 import GuestGuard from "components/authentication/GuestGuard";
 import DashboardLayout from "components/Layouts/DashboardLayout";
 import LoadingScreen from "components/LoadingScreen";
+
 import { FC, lazy, LazyExoticComponent, Suspense } from "react";
 import { Navigate } from "react-router-dom";
 
@@ -27,6 +28,9 @@ const DashboardSaaS = Loadable(lazy(() => import("./pages/dashboards/SaaS")));
 // user profile
 const UserProfile = Loadable(lazy(() => import("./pages/UserProfile")));
 const UpdateUserProfile = Loadable(lazy(() => import("./pages/UpdateProfile")));
+
+// Hospitals 
+const AddNewHospital = Loadable(lazy(() => import("./pages/hospitals/AddNewHospital")));
 
 // user management
 const UserList = Loadable(
@@ -91,6 +95,10 @@ const routes = [
       {
         path: "update-profile",
         element: <UpdateUserProfile/> ,
+      },
+      {
+        path: "add-hospital",
+        element: <AddNewHospital/> ,
       },
 
       {
