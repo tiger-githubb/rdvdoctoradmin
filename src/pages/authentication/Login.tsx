@@ -53,15 +53,21 @@ const Login: FC = () => {
       onSubmit: async (values) => {
         setLoading(true);
         try {
-          await signInWithEmailAndPassword(auth, values.email, values.password);
+          const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
+          const user = userCredential.user;
+      
+          const token = await user.getIdToken();
+          localStorage.setItem('token', token);
+      
           setLoading(false);
           toast.success("Logged in successfully");
           navigate("/dashboard"); // Rediriger vers la page appropriée après la connexion réussie
         } catch (error) {
-          // setError(error.message);
+          setError("Invalid email or password"); // Afficher un message d'erreur générique
           setLoading(false);
         }
       },
+      
     });
 
   return (

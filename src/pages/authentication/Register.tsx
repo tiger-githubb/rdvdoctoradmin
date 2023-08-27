@@ -26,6 +26,7 @@ import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../services/firebase';
 
+
 const Register: FC = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -57,7 +58,21 @@ const Register: FC = () => {
       onSubmit: async (values) => {
         setLoading(true);
         try {
-          await createUserWithEmailAndPassword(auth, values.email, values.password);
+          const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+          const user = userCredential.user;
+      
+          const token = await user.getIdToken();
+          localStorage.setItem('token', token);
+      
+          // Stocker uniquement les informations nécessaires de l'utilisateur
+          const userData = {
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            // ... autres informations que vous souhaitez stocker
+          };
+          localStorage.setItem('user', JSON.stringify(userData));
+      
           setLoading(false);
           toast.success("You registered successfully");
           navigate("/dashboard"); // Rediriger vers la page appropriée après l'inscription
@@ -65,7 +80,7 @@ const Register: FC = () => {
           // setError(error.message);
           setLoading(false);
         }
-      },
+      },      
     });
 
   return (
