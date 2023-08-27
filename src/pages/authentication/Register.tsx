@@ -70,7 +70,7 @@ const Register: FC = () => {
             role: 1, 
             phone_number: '',
             description:'',
-            spéciality: '',
+            speciality: '',
             address: '',
             date_of_birth: '',
             profile_image: '',
