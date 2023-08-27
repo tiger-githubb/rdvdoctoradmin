@@ -66,8 +66,12 @@ const Register: FC = () => {
           const defaultUserData = {
             displayName: values.name,
             email: user.email,
-            role: 1, // rôle par défaut
+            uid: user.uid,
+            role: 1, 
             phone_number: '',
+            localisation: '',
+            description:'',
+            spéciality: '',
             address: '',
             date_of_birth: '',
             profile_image: '',
@@ -79,7 +83,6 @@ const Register: FC = () => {
           localStorage.setItem('token', token);
           
           const userData = {
-            uid: user.uid,
             ...defaultUserData,
           };
           localStorage.setItem('user', JSON.stringify(userData));
