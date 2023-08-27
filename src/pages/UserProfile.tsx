@@ -116,7 +116,7 @@ function UserProfile() {
               {userData ? (
               <Box marginLeft={3} marginTop={3}>
                <H3 lineHeight={1.2}>{userData.displayName || 'Utilisateur'} </H3> 
-                <Small color="text.disabled">{userData.spéciality || 'specialité'}</Small>
+                <Small color="text.disabled">{userData.speciality || 'specialité'}</Small>
               </Box>
                ) : (
                 <p>Chargement</p>
