@@ -47,16 +47,16 @@ const PostCard: FC<PostCardProps> = ({ post, handleMore }) => {
       <FlexBox justifyContent="space-between">
         <FlexBox alignItems="center">
           <ImageWrapper>
-            <img
+            {/* <img
               src="/static/user/user-10.png"
               alt="User"
               width="100%"
               height="100%"
-            />
+            /> */}
           </ImageWrapper>
 
           <Box marginLeft={1}>
-            <H5 lineHeight={1}>Martha Hawk</H5>
+            <H5 lineHeight={1}>Calendrier</H5>
             <Tiny fontWeight={500} color="text.disabled">
               22 June 2020
             </Tiny>
@@ -77,7 +77,7 @@ const PostCard: FC<PostCardProps> = ({ post, handleMore }) => {
           </PostImageWrapper>
         )}
 
-        <FlexBox alignItems="center" justifyContent="space-between" my={2}>
+        {/* <FlexBox alignItems="center" justifyContent="space-between" my={2}>
           {postDetails.map(({ Icon, count }, index) => (
             <ButtonBase disableRipple key={index}>
               <FlexBox alignItems="center">
@@ -88,35 +88,9 @@ const PostCard: FC<PostCardProps> = ({ post, handleMore }) => {
               </FlexBox>
             </ButtonBase>
           ))}
-        </FlexBox>
+        </FlexBox> */}
 
-        <FlexBox alignItems="center" py={1}>
-          <Avatar
-            alt="User"
-            src="/static/user/user-10.png"
-            sx={{ width: 36, height: 36 }}
-          />
 
-          <InputBase
-            placeholder="Write a comment"
-            sx={{
-              height: 36,
-              paddingX: 2,
-              fontSize: 13,
-              width: "100%",
-              marginLeft: 1,
-              fontWeight: 600,
-              borderRadius: "8px",
-              color: "text.primary",
-              backgroundColor:
-                theme.palette.mode === "light" ? "secondary.200" : "divider",
-            }}
-          />
-
-          <IconButton>
-            <Send fontSize="large" color="disabled" />
-          </IconButton>
-        </FlexBox>
       </Box>
     </Card>
   );

@@ -24,7 +24,8 @@ import * as Yup from "yup";
 import toast from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../services/firebase';
+import { auth, db } from '../../services/firebase';
+import { collection, doc, setDoc } from "firebase/firestore";
 
 
 const Register: FC = () => {
@@ -51,6 +52,7 @@ const Register: FC = () => {
       .required("Password is required"),
   });
 
+  
   const { errors, values, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
@@ -60,16 +62,27 @@ const Register: FC = () => {
         try {
           const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
           const user = userCredential.user;
-      
+
+          const defaultUserData = {
+            displayName: values.name,
+            email: user.email,
+            uid: user.uid,
+            role: 1, 
+            phone_number: '',
+            description:'',
+            spéciality: '',
+            address: '',
+            date_of_birth: '',
+            profile_image: '',
+          };
+          
+          await setDoc(doc(db, "users", user.uid), defaultUserData);
+
           const token = await user.getIdToken();
           localStorage.setItem('token', token);
-      
-          // Stocker uniquement les informations nécessaires de l'utilisateur
+          
           const userData = {
-            uid: user.uid,
-            email: user.email,
-            displayName: user.displayName,
-            // ... autres informations que vous souhaitez stocker
+            ...defaultUserData,
           };
           localStorage.setItem('user', JSON.stringify(userData));
       
@@ -108,18 +121,18 @@ const Register: FC = () => {
         </FlexBox>
 
         <FlexBox justifyContent="space-between" flexWrap="wrap" my="1rem">
-          {/* <SocialIconButton
+         <SocialIconButton
             // onClick={loginWithGoogle}
             startIcon={<GoogleIcon sx={{ mr: "0.5rem" }} />}
           >
             Sign up with Google
-          </SocialIconButton> */}
-          {/* <SocialIconButton
+          </SocialIconButton> 
+          <SocialIconButton
             // onClick={loginWithFacebook}
             startIcon={<FacebookIcon sx={{ mr: "0.5rem" }} />}
           >
             Sign up with Facebook
-          </SocialIconButton> */}
+          </SocialIconButton>
 
           <Divider sx={{ my: 3, width: "100%", alignItems: "flex-start" }}>
             <H3 color="text.disabled" px={1}>
