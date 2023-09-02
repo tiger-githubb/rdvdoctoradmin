@@ -4,16 +4,16 @@ import UkoAvatar from "components/UkoAvatar";
 
 const UserListColumnShape = [
   {
-    Header: "Name",
-    accessor: "name",
+    Header: "Nom",
+    accessor: "displayName", 
     minWidth: 200,
     Cell: ({ row }: any) => {
-      const { avatar, name, address } = row.original;
+      const { profile_image, displayName, address } = row.original;
       return (
         <FlexBox alignItems="center">
-          <UkoAvatar src={avatar} />
+          <UkoAvatar src={profile_image} /> 
           <FlexBox flexDirection="column" ml={1}>
-            <H6 color="text.primary">{name}</H6>
+            <H6 color="text.primary">{displayName}</H6>
             <Tiny color="text.disabled">{address}</Tiny>
           </FlexBox>
         </FlexBox>
@@ -21,8 +21,8 @@ const UserListColumnShape = [
     },
   },
   {
-    Header: "Role",
-    accessor: "role",
+    Header: "Rôle",
+    accessor: "role", // Utilisez le nom de la clé dans Firestore
     minWidth: 200,
     Cell: ({ value }: any) => (
       <Small
@@ -38,18 +38,18 @@ const UserListColumnShape = [
     ),
   },
   {
-    Header: "Company",
-    accessor: "company",
+    Header: "Spécialité",
+    accessor: "speciality", // Utilisez le nom de la clé dans Firestore
     minWidth: 150,
   },
   {
-    Header: "Project",
-    accessor: "project",
+    Header: "Numero de télephone",
+    accessor: "phone_number", // Utilisez le nom de la clé dans Firestore
     minWidth: 150,
   },
   {
-    Header: "Verified",
-    accessor: "verified",
+    Header: "Adresse",
+    accessor: "address", // Utilisez le nom de la clé dans Firestore
     minWidth: 100,
     maxWidth: 100,
   },
