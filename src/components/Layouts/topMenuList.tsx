@@ -21,11 +21,7 @@ const index = [
     Icon: LocalHospitalOutlined,
     path: "/dashboard/add-hospital",
   },
-  {
-    title: "User Grid",
-    Icon: Icons.UserGridIcon,
-    path: "/dashboard/user-grid",
-  },
+
   {
     title: "User List",
     Icon: Icons.UserManagementIcon,
@@ -35,6 +31,11 @@ const index = [
     title: "Add user",
     Icon: Icons.AddUserIcon,
     path: "/dashboard/add-user",
+  },
+  {
+    title: "User Grid",
+    Icon: Icons.UserGridIcon,
+    path: "/dashboard/user-grid",
   },
   {
     title: "Login",
