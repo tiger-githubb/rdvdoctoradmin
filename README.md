@@ -1,9 +1,5 @@
-<h1><a href="https://ui-lib.com/downloads/uko-lite-react-dashboard/">Uko React Admin Dashboard Template</a></h1>
-
-<a href="https://uko-react-free.netlify.app/"><img alt="Uko React Admin" src="https://ui-lib.com/wp-content/uploads/2022/06/uko-react-free.png" /></a>
-
 <p>Professional React dashboard template with robust MUI components.
-Its clean codebase and design significantly reduce development costs, time, and effort.</p>
+Its clean codebase and  design significantly reduce development costs, time, and effort.</p>
 
 <h2>Features and Pages</h2>
 <ul>
