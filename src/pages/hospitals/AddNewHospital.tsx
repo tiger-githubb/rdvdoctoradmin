@@ -18,8 +18,8 @@ import useTitle from "hooks/useTitle";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import { db, auth } from "services/firebase";
-import { collection, addDoc ,getDocs, query, where } from "firebase/firestore";
-import { FormikValues } from "formik";
+import { collection, addDoc } from "firebase/firestore";
+// import { FormikValues } from "formik";
 
 // styled components
 const ButtonWrapper = styled(Box)(({ theme }) => ({
