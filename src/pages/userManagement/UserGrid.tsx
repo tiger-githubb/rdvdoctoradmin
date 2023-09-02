@@ -34,9 +34,9 @@ const UserGrid: FC = () => {
       <StyledFlexBox>
         <SearchInput placeholder="Search user..." />
         <Button variant="contained" onClick={handleAddUser}>
-          Add New User
-        </Button>
-      </StyledFlexBox>
+          Add a New User
+        </Button>  
+      </StyledFlexBox> 
 
       <Grid container spacing={3}>
         {userList.map((user, index) => (
