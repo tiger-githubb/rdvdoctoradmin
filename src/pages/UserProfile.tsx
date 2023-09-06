@@ -165,7 +165,7 @@ function UserProfile() {
               ))}
             </Grid>
           </StyledTabPanel>
-          <UpdateAvailability uid={""}  />
+          <UpdateAvailability professionalId={""}  />
 
           <StyledTabPanel value="4">
             <Gallery />

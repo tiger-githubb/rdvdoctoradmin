@@ -1,4 +1,4 @@
-import React, { FC, useState , useEffect } from 'react';
+import React, { useState , useEffect } from 'react';
 
 import {  getDatabase, ref, set } from 'firebase/database';
 import { getAuth , onAuthStateChanged } from 'firebase/auth';
@@ -10,21 +10,18 @@ interface UpdateAvailabilityProps {
 
 const UpdateAvailability: React.FC<UpdateAvailabilityProps> = ({ professionalId }) => {
   const [day, setDay] = useState<string>('lundi');
-  const [startTime, setStartTime] = useState<string>('');
-  const [endTime, setEndTime] = useState<string>('');
+  const [morningStartTime, setMorningStartTime] = useState<string>('');
+  const [morningEndTime, setMorningEndTime] = useState<string>('');
+  const [eveningStartTime, setEveningStartTime] = useState<string>('');
+  const [eveningEndTime, setEveningEndTime] = useState<string>('');
+  const [userUid, setUserUid] = useState<string | null>(null); 
 
-  const [userUid, setUserUid] = useState<string | null>(null); // Stockez l'UID de l'utilisateur
-
-  useEffect(() => {
-    // Utilisez la fonction onAuthStateChanged pour surveiller les changements d'état d'authentification
-    
+  useEffect(() => {    
     const auth = getAuth(firebase);
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // L'utilisateur est connecté, récupérez son UID
         setUserUid(user.uid);
       } else {
-        // L'utilisateur n'est pas connecté
         setUserUid(null);
       }
     });
@@ -32,7 +29,6 @@ const UpdateAvailability: React.FC<UpdateAvailabilityProps> = ({ professionalId 
 
   const handleUpdateAvailability = () => {
     if (!userUid) {
-      // L'utilisateur n'est pas connecté, gérez cette situation (par exemple, affichez un message d'erreur)
       console.error('L\'utilisateur n\'est pas connecté');
       return;
     }
@@ -40,18 +36,23 @@ const UpdateAvailability: React.FC<UpdateAvailabilityProps> = ({ professionalId 
     const db = getDatabase(firebase);
 
     const availabilityRef = ref(db, `disponibilites_professionnels/${userUid}/${day}`);
-    const newAvailability: string[] = [startTime, endTime];
-
+    const newAvailability = {
+      matin: [morningStartTime, morningEndTime],
+      soir: [eveningStartTime, eveningEndTime],
+    };
     set(availabilityRef, newAvailability)
       .then(() => {
         console.log('Disponibilité mise à jour avec succès');
         // Réinitialisez les valeurs des champs du formulaire
-        setStartTime('');
-        setEndTime('');
+        setMorningStartTime('');
+        setMorningEndTime('');
+        setEveningStartTime('');
+        setEveningEndTime('');
       })
       .catch((error) => {
         console.error('Erreur lors de la mise à jour de la disponibilité', error);
       });
+
   };
 
   return (
@@ -66,24 +67,41 @@ const UpdateAvailability: React.FC<UpdateAvailabilityProps> = ({ professionalId 
         </select>
       </label>
       <label>
-        Heure de début:
+        Matin - Heure de début:
         <input
           type="text"
-          value={startTime}
-          onChange={(e) => setStartTime(e.target.value)}
+          value={morningStartTime}
+          onChange={(e) => setMorningStartTime(e.target.value)}
         />
       </label>
       <label>
-        Heure de fin:
+        Matin - Heure de fin:
         <input
           type="text"
-          value={endTime}
-          onChange={(e) => setEndTime(e.target.value)}
+          value={morningEndTime}
+          onChange={(e) => setMorningEndTime(e.target.value)}
+        />
+      </label>
+      <label>
+        Soir - Heure de début:
+        <input
+          type="text"
+          value={eveningStartTime}
+          onChange={(e) => setEveningStartTime(e.target.value)}
+        />
+      </label>
+      <label>
+        Soir - Heure de fin:
+        <input
+          type="text"
+          value={eveningEndTime}
+          onChange={(e) => setEveningEndTime(e.target.value)}
         />
       </label>
       <button onClick={handleUpdateAvailability}>Mettre à jour</button>
     </div>
   );
 };
+
 
 export default UpdateAvailability;
