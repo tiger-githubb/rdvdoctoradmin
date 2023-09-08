@@ -70,8 +70,8 @@ const UpdateAvailabilityForm: React.FC<UpdateAvailabilityFormProps> = ({
 
   return (
     <Container>
-      <H5>Mettre à jour la disponibilité pour {day}</H5>
-      <Grid container spacing={2}>
+      <H5 mt={3}>Mettre à jour la disponibilité pour {day}</H5>
+      <Grid container spacing={4} mt={2}>
         <Grid item xs={6}>
           <LightTextField
             label="Matin - Heure de début"
@@ -110,6 +110,7 @@ const UpdateAvailabilityForm: React.FC<UpdateAvailabilityFormProps> = ({
         </Grid>
       </Grid>
       <Button 
+        style={{ marginTop: '10px' }}
         variant="contained"
         color="primary"
         onClick={handleUpdateAvailability}
