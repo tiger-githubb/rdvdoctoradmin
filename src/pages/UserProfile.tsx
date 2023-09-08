@@ -12,6 +12,7 @@ import Profile from "components/userProfile/Profile";
 import useTitle from "hooks/useTitle";
 import { db, auth } from "services/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import UpdateAvailability from "components/Dashboards/saas/UpdateAvailability";
 
 // styled start
 const StyledCard = styled(Card)(() => ({
@@ -54,7 +55,6 @@ const StyledTabPanel = styled(TabPanel)(() => ({
 //  end style
 
 function UserProfile() {
-
   const [userData, setUserData] = useState<any | null>(null);
 
   useEffect(() => {
@@ -62,7 +62,10 @@ function UserProfile() {
       try {
         const user = auth.currentUser;
         if (user) {
-          const q = query(collection(db, "users"), where("uid", "==", user.uid));
+          const q = query(
+            collection(db, "users"),
+            where("uid", "==", user.uid)
+          );
           const querySnapshot = await getDocs(q);
 
           querySnapshot.forEach((doc) => {
@@ -74,10 +77,9 @@ function UserProfile() {
         console.error("Error fetching user data:", error);
       }
     };
-    
+
     fetchUserData();
   }, []);
-
 
   useTitle("Mon profil");
   const [value, setValue] = useState("1");
@@ -95,7 +97,8 @@ function UserProfile() {
               alt="User Cover"
               height="100%"
               width="100%"
-              style={{ objectFit: "cover" }} />
+              style={{ objectFit: "cover" }}
+            />
           </Box>
 
           <FlexBox
@@ -106,19 +109,24 @@ function UserProfile() {
           >
             <ContentWrapper>
               <UkoAvatar
-                src={ "/static/avatar/001-man.svg"}
+                src={"/static/avatar/001-man.svg"}
                 sx={{
                   border: 4,
                   width: 100,
                   height: 100,
                   borderColor: "background.paper",
-                }} />
+                }}
+              />
               {userData ? (
-              <Box marginLeft={3} marginTop={3}>
-               <H3 lineHeight={1.2}>{userData.displayName || 'Utilisateur'} </H3> 
-                <Small color="text.disabled">{userData.speciality || 'specialité'}</Small>
-              </Box>
-               ) : (
+                <Box marginLeft={3} marginTop={3}>
+                  <H3 lineHeight={1.2}>
+                    {userData.displayName || "Utilisateur"}{" "}
+                  </H3>
+                  <Small color="text.disabled">
+                    {userData.speciality || "specialité"}
+                  </Small>
+                </Box>
+              ) : (
                 <p>Chargement</p>
               )}
             </ContentWrapper>
@@ -132,7 +140,7 @@ function UserProfile() {
 
         <Box marginTop={3}>
           <StyledTabPanel value="1">
-            <Profile  userData={userData}/>
+            <Profile userData={userData} />
           </StyledTabPanel>
 
           <StyledTabPanel value="2">
@@ -157,6 +165,7 @@ function UserProfile() {
               ))}
             </Grid>
           </StyledTabPanel>
+          <UpdateAvailability professionalId={""}  />
 
           <StyledTabPanel value="4">
             <Gallery />
