@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import firebase from 'services/firebase';
 import UpdateAvailabilityForm from './UpdateAvailabilityForm';
+import { Card } from '@mui/material';
 
 interface UpdateAvailabilityProps {
   professionalId: string;
@@ -24,7 +25,8 @@ const UpdateAvailability: React.FC<UpdateAvailabilityProps> = ({ professionalId 
   const daysOfWeek = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi']; 
 
   return (
-    <div>
+    <Card sx={{ padding: "2rem" }}>
+   
       {daysOfWeek.map((day) => (
         userUid !== null ? (
           <UpdateAvailabilityForm key={day} userUid={userUid} day={day} />
@@ -32,7 +34,8 @@ const UpdateAvailability: React.FC<UpdateAvailabilityProps> = ({ professionalId 
           <div key={day}>Erreur : Utilisateur non connecté</div>
         )
       ))}
-    </div>
+    
+    </Card>
   );
 };
 export default UpdateAvailability;
