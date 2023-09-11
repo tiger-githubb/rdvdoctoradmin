@@ -4,11 +4,14 @@ import { get, getDatabase, ref, set } from "firebase/database";
 import firebase from "services/firebase";
 import { H5 } from "components/Typography";
 import LightTextField from "components/LightTextField";
+import moment from "moment";
 
 interface UpdateAvailabilityFormProps {
   userUid: string;
   day: string;
 }
+const now = moment();
+
 
 const UpdateAvailabilityForm: React.FC<UpdateAvailabilityFormProps> = ({
   userUid,
@@ -44,18 +47,22 @@ const UpdateAvailabilityForm: React.FC<UpdateAvailabilityFormProps> = ({
       });
   }, [userUid, day]);
 
+
+
   const handleUpdateAvailability = () => {
     const db = getDatabase(firebase);
     const availabilityRef = ref(
       db,
       `disponibilites_professionnels/${userUid}/${day}`
     );
-
+  
     const newAvailability = {
       matin: [morningStartTime, morningEndTime],
       soir: [eveningStartTime, eveningEndTime],
+      matin_creneaux: generateAppointments(morningStartTime, morningEndTime),
+      soir_creneaux: generateAppointments(eveningStartTime, eveningEndTime),
     };
-
+  
     set(availabilityRef, newAvailability)
       .then(() => {
         console.log(`Disponibilité pour ${day} mise à jour avec succès`);
@@ -67,6 +74,25 @@ const UpdateAvailabilityForm: React.FC<UpdateAvailabilityFormProps> = ({
         );
       });
   };
+  
+  const generateAppointments = (startTime: moment.MomentInput, endTime: moment.MomentInput) => {
+    const appointments = [];
+    const duration = moment.duration(30, 'minutes');
+    let currentTime = moment(startTime, 'HH:mm');
+  
+    while (currentTime.isBefore(moment(endTime, 'HH:mm'))) {
+      const appointmentStart = currentTime.format('HH:mm');
+      currentTime.add(duration);
+      const appointmentEnd = currentTime.format('HH:mm');
+      appointments.push({ start: appointmentStart, end: appointmentEnd, reserved: false });
+    }
+  
+    return appointments;
+  };
+  
+  
+
+  
 
   return (
     <Container>
@@ -109,8 +135,8 @@ const UpdateAvailabilityForm: React.FC<UpdateAvailabilityFormProps> = ({
           />
         </Grid>
       </Grid>
-      <Button 
-        style={{ marginTop: '10px' }}
+      <Button
+        style={{ marginTop: "10px" }}
         variant="contained"
         color="primary"
         onClick={handleUpdateAvailability}
