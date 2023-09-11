@@ -10,8 +10,6 @@ interface UpdateAvailabilityFormProps {
   userUid: string;
   day: string;
 }
-const now = moment();
-
 
 const UpdateAvailabilityForm: React.FC<UpdateAvailabilityFormProps> = ({
   userUid,
@@ -26,73 +24,70 @@ const UpdateAvailabilityForm: React.FC<UpdateAvailabilityFormProps> = ({
     const db = getDatabase(firebase);
     const availabilityRef = ref(
       db,
-      `disponibilites_professionnels/${userUid}/${day}`
+      `professionnels/${userUid}/disponibilites/${day}`
     );
 
     get(availabilityRef)
       .then((snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-          setMorningStartTime(data.matin[0]);
-          setMorningEndTime(data.matin[1]);
-          setEveningStartTime(data.soir[0]);
-          setEveningEndTime(data.soir[1]);
+          setMorningStartTime(data.matin.debut);
+          setMorningEndTime(data.matin.fin);
+          setEveningStartTime(data.soir.debut);
+          setEveningEndTime(data.soir.fin);
         }
       })
       .catch((error) => {
-        console.error(
-          "Erreur lors de la récupération de la disponibilité",
-          error
-        );
+        console.error("Erreur lors de la récupération de la disponibilité", error);
       });
   }, [userUid, day]);
-
-
 
   const handleUpdateAvailability = () => {
     const db = getDatabase(firebase);
     const availabilityRef = ref(
       db,
-      `disponibilites_professionnels/${userUid}/${day}`
+      `professionnels/${userUid}/disponibilites/${day}`
     );
-  
+
     const newAvailability = {
-      matin: [morningStartTime, morningEndTime],
-      soir: [eveningStartTime, eveningEndTime],
-      matin_creneaux: generateAppointments(morningStartTime, morningEndTime),
-      soir_creneaux: generateAppointments(eveningStartTime, eveningEndTime),
+      matin: {
+        debut: morningStartTime,
+        fin: morningEndTime,
+        creneaux: generateAppointments(morningStartTime, morningEndTime),
+      },
+      soir: {
+        debut: eveningStartTime,
+        fin: eveningEndTime,
+        creneaux: generateAppointments(eveningStartTime, eveningEndTime),
+      },
     };
-  
+
     set(availabilityRef, newAvailability)
       .then(() => {
         console.log(`Disponibilité pour ${day} mise à jour avec succès`);
       })
       .catch((error) => {
-        console.error(
-          "Erreur lors de la mise à jour de la disponibilité",
-          error
-        );
+        console.error("Erreur lors de la mise à jour de la disponibilité", error);
       });
   };
-  
-  const generateAppointments = (startTime: moment.MomentInput, endTime: moment.MomentInput) => {
+
+  const generateAppointments = (
+    startTime: moment.MomentInput,
+    endTime: moment.MomentInput
+  ) => {
     const appointments = [];
-    const duration = moment.duration(30, 'minutes');
-    let currentTime = moment(startTime, 'HH:mm');
-  
-    while (currentTime.isBefore(moment(endTime, 'HH:mm'))) {
-      const appointmentStart = currentTime.format('HH:mm');
+    const duration = moment.duration(30, "minutes");
+    let currentTime = moment(startTime, "HH:mm");
+
+    while (currentTime.isBefore(moment(endTime, "HH:mm"))) {
+      const appointmentStart = currentTime.format("HH:mm");
       currentTime.add(duration);
-      const appointmentEnd = currentTime.format('HH:mm');
+      const appointmentEnd = currentTime.format("HH:mm");
       appointments.push({ start: appointmentStart, end: appointmentEnd, reserved: false });
     }
-  
+
     return appointments;
   };
-  
-  
-
-  
 
   return (
     <Container>
