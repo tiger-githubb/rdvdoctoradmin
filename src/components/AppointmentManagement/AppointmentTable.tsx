@@ -9,7 +9,7 @@ import {
     TableRow,
   } from "@mui/material";
   import { H5, Small } from "components/Typography";
-  import { FC } from "react";
+  import { FC, Key, ReactChild, ReactFragment, ReactPortal } from "react";
   import ScrollBar from "simplebar-react";
   
   interface AppointmentsProps {
@@ -44,92 +44,57 @@ import {
   
   export default function AppointmentTable ({ availabilityData }: AppointmentsProps) {
 
-    console.log(availabilityData.day);
+    if (!availabilityData) {
+        return null; 
+      }
+      const lundiMatinCreneaux = availabilityData.lundi.matin.creneaux;
+      const lundiSoirCreneaux = availabilityData.lundi.soir.creneaux;
+
+
+    console.log(lundiMatinCreneaux);
     
     return (
-      <Card sx={{ padding: "2rem" }}>  
-        <ScrollBar>
-          <Table>
-            <TableHead
-              sx={{ borderBottom: "1.5px solid", borderColor: "divider" }}
-            >
-              <TableRow>
-                <HeadTableCell>Tracking No</HeadTableCell>
-                <HeadTableCell>Product Name</HeadTableCell>
-                <HeadTableCell>Price</HeadTableCell>
-                <HeadTableCell>Total Order</HeadTableCell>
-                <HeadTableCell>Total amount</HeadTableCell>
-              </TableRow>
-            </TableHead>
-  
-            <TableBody>
-              {orderList.map((item, index) => (
-                <TableRow key={index}>
-                  <BodyTableCell>{item.orderNo}</BodyTableCell>
-                  <BodyTableCell>
-                    <Box display="flex" alignItems="center">
-                      <img src={item.image} alt="product title" width="40px" />
-                      <Small ml="1rem">{item.name}</Small>
-                    </Box>
-                  </BodyTableCell>
-                  <BodyTableCell>${item.price}</BodyTableCell>
-                  <BodyTableCell>
-                    <Box
-                      sx={{
-                        backgroundColor: "secondary.200",
-                        borderRadius: 11,
-                        maxWidth: 55,
-                        padding: "0.3rem",
-                        textAlign: "center",
-                        color: "secondary.400",
-                      }}
-                    >
-                      {item.totalOrder}
-                    </Box>
-                  </BodyTableCell>
-                  <BodyTableCell>{item.totalAmount}</BodyTableCell>
+        <Card sx={{ padding: "2rem" }}>
+          <ScrollBar>
+            <Table>
+              <H5>Lundi</H5>
+              <TableHead sx={{ borderBottom: "1.5px solid", borderColor: "divider" }}>
+                <TableRow>
+                  <HeadTableCell>matin/soir</HeadTableCell>
+                  <HeadTableCell>Heure debut</HeadTableCell>
+                  <HeadTableCell>Heure de fin</HeadTableCell>
+                  <HeadTableCell>reserver par</HeadTableCell>
+                  <HeadTableCell>confirmation</HeadTableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </ScrollBar>
-      </Card>
-    );
-  };
+              </TableHead>
+    
+              <TableBody>
+                {lundiMatinCreneaux.map((creneau: { start: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined; end: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined; reservedBy: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined; confirmed: any; }, index: Key | null | undefined) => (
+                  <TableRow key={index}>
+                    <BodyTableCell>matin</BodyTableCell>
+                    <BodyTableCell>{creneau.start}</BodyTableCell>
+                    <BodyTableCell>{creneau.end}</BodyTableCell>
+                    <BodyTableCell>{creneau.reservedBy}</BodyTableCell>
+                    <BodyTableCell>{creneau.confirmed ? "Oui" : "Non"}</BodyTableCell>
+                  </TableRow>
+                ))}
+    
+                {lundiSoirCreneaux.map((creneau: { start: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined; end: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined; reservedBy: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined; confirmed: any; }, index: Key | null | undefined) => (
+                  <TableRow key={index}>
+                    <BodyTableCell>soir</BodyTableCell>
+                    <BodyTableCell>{creneau.start}</BodyTableCell>
+                    <BodyTableCell>{creneau.end}</BodyTableCell>
+                    <BodyTableCell>{creneau.reservedBy}</BodyTableCell>
+                    <BodyTableCell>{creneau.confirmed ? "Oui" : "Non"}</BodyTableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </ScrollBar>
+        </Card>
+      );
+    };
   
-  const orderList = [
-    {
-      orderNo: "#JY7685",
-      name: "Nike Air max 170",
-      image: "/static/products/shoe-1.png",
-      price: 654,
-      totalOrder: 325,
-      totalAmount: "$1,45,660",
-    },
-    {
-      orderNo: "#JY7686",
-      name: "Cactus Plant",
-      image: "/static/products/bonsai.png",
-      price: 654,
-      totalOrder: 40,
-      totalAmount: "$1,45,420",
-    },
-    {
-      orderNo: "#JY7687",
-      name: "Minimal Pot",
-      image: "/static/products/airbud.png",
-      price: 654,
-      totalOrder: 57,
-      totalAmount: "$45,660",
-    },
-    {
-      orderNo: "#JY7688",
-      name: "Adidas Blaze",
-      image: "/static/products/shoe-2.png",
-      price: 654,
-      totalOrder: 125,
-      totalAmount: "$12,660",
-    },
-  ];
+
   
   
