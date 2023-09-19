@@ -76,6 +76,8 @@ export default function AppointmentTable({
     "dimanche",
   ];
 
+  const periodejour = ["matin", "soir"];
+
   return (
     <Card sx={{ padding: "2rem" }}>
       <ScrollBar>
@@ -83,43 +85,47 @@ export default function AppointmentTable({
           <div key={jour}>
             <H5>{jour.charAt(0).toUpperCase() + jour.slice(1)}</H5>
             <Table sx={{ marginBottom: "2rem" }}>
-            <TableHead sx={{ borderBottom: "1.5px solid", borderColor: "divider" }}>
-              <TableRow>
-                <HeadTableCell>matin/soir</HeadTableCell>
-                <HeadTableCell>Heure debut</HeadTableCell>
-                <HeadTableCell>Heure de fin</HeadTableCell>
-                <HeadTableCell>reserver par</HeadTableCell>
-                <HeadTableCell>confirmation</HeadTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {(availabilityData[jour]?.matin.creneaux || []).map(
-                (creneau: Creneau, index) => (
-                  <TableRow key={index}>
-                    <BodyTableCell>matin</BodyTableCell>
-                    <BodyTableCell>{creneau.start}</BodyTableCell>
-                    <BodyTableCell>{creneau.end}</BodyTableCell>
-                    <BodyTableCell>{creneau.reservedBy}</BodyTableCell>
-                    <BodyTableCell>
-                      {creneau.confirmed ? "Oui" : "Non"}
-                    </BodyTableCell>
-                  </TableRow>
-                )
-              )}
-              {(availabilityData[jour]?.soir.creneaux || []).map(
-                (creneau: Creneau, index) => (
-                  <TableRow key={index}>
-                    <BodyTableCell>soir</BodyTableCell>
-                    <BodyTableCell>{creneau.start}</BodyTableCell>
-                    <BodyTableCell>{creneau.end}</BodyTableCell>
-                    <BodyTableCell>{creneau.reservedBy}</BodyTableCell>
-                    <BodyTableCell>
-                      {creneau.confirmed ? "Oui" : "Non"}
-                    </BodyTableCell>
-                  </TableRow>
-                )
-              )}
-            </TableBody>
+              <TableHead
+                sx={{ borderBottom: "1.5px solid", borderColor: "divider" }}
+              >
+                <TableRow>
+                  <HeadTableCell>matin/soir</HeadTableCell>
+                  <HeadTableCell>Heure début</HeadTableCell>
+                  <HeadTableCell>Heure de fin</HeadTableCell>
+                  <HeadTableCell>reservé par</HeadTableCell>
+                  <HeadTableCell>confirmation</HeadTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {periodejour.map((periode) => (
+                  <React.Fragment key={periode}>
+                    {availabilityData[jour]?.[periode] ? (
+                      (availabilityData[jour][periode].creneaux || []).map(
+                        (
+                          creneau: Creneau,
+                          index: React.Key | null | undefined
+                        ) => (
+                          <TableRow key={index}>
+                            <BodyTableCell>{periode}</BodyTableCell>
+                            <BodyTableCell>{creneau.start}</BodyTableCell>
+                            <BodyTableCell>{creneau.end}</BodyTableCell>
+                            <BodyTableCell>{creneau.reservedBy}</BodyTableCell>
+                            <BodyTableCell>
+                              {creneau.confirmed ? "Oui" : "Non"}
+                            </BodyTableCell>
+                          </TableRow>
+                        )
+                      )
+                    ) : (
+                      <TableRow>
+                        <BodyTableCell colSpan={5}>
+                          Données indisponibles
+                        </BodyTableCell>
+                      </TableRow>
+                    )}
+                  </React.Fragment>
+                ))}
+              </TableBody>
             </Table>
           </div>
         ))}
