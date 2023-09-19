@@ -1,14 +1,12 @@
-import { Box, Button, styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import FlexBox from "components/FlexBox";
 import SearchInput from "components/SearchInput";
-import CustomTable from "components/AppointmentManagement/CustomTable";
-import UserListColumnShape from "components/AppointmentManagement/columnShape";
-import { collection, getDocs } from "firebase/firestore";
 import useTitle from "hooks/useTitle";
 import { FC, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { db } from "services/firebase";
-// styled component
+import { useParams } from "react-router-dom";
+import { getAuth } from "firebase/auth";
+import { getDatabase, ref, onValue } from "firebase/database";
+import AppointmentTable from "components/AppointmentManagement/AppointmentTable";
 const StyledFlexBox = styled(FlexBox)(({ theme }) => ({
   justifyContent: "space-between",
   alignItems: "center",
@@ -24,57 +22,42 @@ const StyledFlexBox = styled(FlexBox)(({ theme }) => ({
   },
 }));
 
-interface UserData {
-  role: number;
-  phone_number: string;
-  address: string;
-  email: string;
-  date_of_birth: string;
-  description?: string;
-  displayName: string;
-  profile_image: string;
-  speciality?: string;
-  uid: string;
+interface AppointmentsProps {
+  data:any;
 }
 
-
 const AppointmentsList: FC = () => {
-  useTitle("User List");
-
-  const [usersData, setUsersData] = useState<UserData[]>([]);
-
-
-  const fetchUsersData = async () => {
-    try {
-      const usersCollectionRef = collection(db, "users");
-      const usersSnapshot = await getDocs(usersCollectionRef);
-
-      const userDataArray: UserData[] = [];
-      usersSnapshot.forEach((doc) => {
-        const userData = doc.data();
-        console.log(userData);
-        userDataArray.push(userData as UserData);
-      });
-
-      setUsersData(userDataArray);
-    } catch (error) {
-      console.error("Erreur lors de la récupération des données des utilisateurs :", error);
-    }
-  };
+  useTitle("Liste de mes rendez-vous");
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const { uid } = useParams<{ uid: string }>();
+  const [availabilityData, setAvailabilityData] = useState<any | null>(null);
 
   useEffect(() => {
-    fetchUsersData();
-  }, []);
+    const currentUserUid = user ? user.uid : null;
 
-  const navigate = useNavigate();
+    const db = getDatabase();
+    const databaseRef = ref(
+      db,
+      `professionnels/${currentUserUid}/disponibilites`
+    );
+    onValue(databaseRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        setAvailabilityData(data);
+        console.log(data);
+      } else {
+        console.log("Aucune donnée de disponibilité trouvée.");
+      }
+    });
+  }, [uid]);
 
   return (
     <Box pt={2} pb={4}>
       <StyledFlexBox>
         <SearchInput placeholder="Rechercher un rendez-vous ... " />
       </StyledFlexBox>
-
-      <CustomTable columnShape={UserListColumnShape} data={usersData} />
+      <AppointmentTable availabilityData={availabilityData}/>
     </Box>
   );
 };
