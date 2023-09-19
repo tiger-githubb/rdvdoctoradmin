@@ -67,7 +67,6 @@ const AppointmentsList: FC = () => {
   }, []);
 
   const navigate = useNavigate();
-  const handleAddUser = () => navigate("/dashboard/add-user");
 
   return (
     <Box pt={2} pb={4}>
