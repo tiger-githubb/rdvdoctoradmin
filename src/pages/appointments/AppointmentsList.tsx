@@ -1,8 +1,8 @@
 import { Box, Button, styled } from "@mui/material";
 import FlexBox from "components/FlexBox";
 import SearchInput from "components/SearchInput";
-import CustomTable from "components/userManagement/CustomTable";
-import UserListColumnShape from "components/userManagement/columnShape";
+import CustomTable from "components/AppointmentManagement/CustomTable";
+import UserListColumnShape from "components/AppointmentManagement/columnShape";
 import { collection, getDocs } from "firebase/firestore";
 import useTitle from "hooks/useTitle";
 import { FC, useEffect, useState } from "react";
@@ -72,10 +72,7 @@ const AppointmentsList: FC = () => {
   return (
     <Box pt={2} pb={4}>
       <StyledFlexBox>
-        <SearchInput placeholder="Search user..." />
-        <Button variant="contained" onClick={handleAddUser}>
-          Add New User
-        </Button>
+        <SearchInput placeholder="Rechercher un rendez-vous ... " />
       </StyledFlexBox>
 
       <CustomTable columnShape={UserListColumnShape} data={usersData} />
