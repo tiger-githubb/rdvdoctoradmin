@@ -29,8 +29,15 @@ const DashboardSaaS = Loadable(lazy(() => import("./pages/dashboards/SaaS")));
 const UserProfile = Loadable(lazy(() => import("./pages/UserProfile")));
 const UpdateUserProfile = Loadable(lazy(() => import("./pages/UpdateProfile")));
 
-// Hospitals 
-const AddNewHospital = Loadable(lazy(() => import("./pages/hospitals/AddNewHospital")));
+// Appointment management
+const AppointmentsList = Loadable(
+  lazy(() => import("pages/appointments/AppointmentsList"))
+);
+
+// Hospitals
+const AddNewHospital = Loadable(
+  lazy(() => import("./pages/hospitals/AddNewHospital"))
+);
 
 // user management
 const UserList = Loadable(
@@ -94,11 +101,11 @@ const routes = [
       },
       {
         path: "update-profile",
-        element: <UpdateUserProfile/> ,
+        element: <UpdateUserProfile />,
       },
       {
         path: "add-hospital",
-        element: <AddNewHospital/> ,
+        element: <AddNewHospital />,
       },
 
       {
@@ -112,6 +119,10 @@ const routes = [
       {
         path: "add-user",
         element: <AddNewUser />,
+      },
+      {
+        path: "appointments",
+        element: <AppointmentsList />,
       },
     ],
   },
