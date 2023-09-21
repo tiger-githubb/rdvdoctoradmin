@@ -1,6 +1,5 @@
-import React from "react";
 import {
-  Box,
+  Button,
   Card,
   styled,
   Table,
@@ -62,8 +61,7 @@ export default function AppointmentTable({
   availabilityData,
 }: AppointmentsProps) {
   if (!availabilityData) {
-    console.log("no data");
-    return null; // Retournez tôt si les données ne sont pas disponibles
+    return null; 
   }
 
   const joursSemaine = [
@@ -76,7 +74,9 @@ export default function AppointmentTable({
     "dimanche",
   ];
 
-  const periodejour = ["matin", "soir"];
+  const handleClick = (creneau:any) => {
+    console.log(creneau.confirmed ? 'Oui' : 'Non');
+  }
 
   return (
     <Card sx={{ padding: "2rem" }}>
@@ -90,41 +90,43 @@ export default function AppointmentTable({
               >
                 <TableRow>
                   <HeadTableCell>matin/soir</HeadTableCell>
-                  <HeadTableCell>Heure début</HeadTableCell>
+                  <HeadTableCell>Heure debut</HeadTableCell>
                   <HeadTableCell>Heure de fin</HeadTableCell>
-                  <HeadTableCell>reservé par</HeadTableCell>
+                  <HeadTableCell>reserver par</HeadTableCell>
                   <HeadTableCell>confirmation</HeadTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {periodejour.map((periode) => (
-                  <React.Fragment key={periode}>
-                    {availabilityData[jour]?.[periode] ? (
-                      (availabilityData[jour][periode].creneaux || []).map(
-                        (
-                          creneau: Creneau,
-                          index: React.Key | null | undefined
-                        ) => (
-                          <TableRow key={index}>
-                            <BodyTableCell>{periode}</BodyTableCell>
-                            <BodyTableCell>{creneau.start}</BodyTableCell>
-                            <BodyTableCell>{creneau.end}</BodyTableCell>
-                            <BodyTableCell>{creneau.reservedBy}</BodyTableCell>
-                            <BodyTableCell>
-                              {creneau.confirmed ? "Oui" : "Non"}
-                            </BodyTableCell>
-                          </TableRow>
-                        )
-                      )
-                    ) : (
-                      <TableRow>
-                        <BodyTableCell colSpan={5}>
-                          Données indisponibles
-                        </BodyTableCell>
-                      </TableRow>
-                    )}
-                  </React.Fragment>
-                ))}
+                {(availabilityData[jour]?.matin.creneaux || []).map(
+                  (creneau: Creneau, index) => (
+                    <TableRow key={index}>
+                      <BodyTableCell>matin</BodyTableCell>
+                      <BodyTableCell>{creneau.start}</BodyTableCell>
+                      <BodyTableCell>{creneau.end}</BodyTableCell>
+                      <BodyTableCell>{creneau.reservedBy}</BodyTableCell>
+                      <BodyTableCell>
+                      <Button variant="contained" onClick={() => handleClick(creneau)} >
+                      {creneau.confirmed ? "Oui" : "Non"}
+                      </Button>
+                      </BodyTableCell>
+                    </TableRow>
+                  )
+                )}
+                {(availabilityData[jour]?.soir.creneaux || []).map(
+                  (creneau: Creneau, index) => (
+                    <TableRow key={index}>
+                      <BodyTableCell>soir</BodyTableCell>
+                      <BodyTableCell>{creneau.start}</BodyTableCell>
+                      <BodyTableCell>{creneau.end}</BodyTableCell>
+                      <BodyTableCell>{creneau.reservedBy}</BodyTableCell>
+                      <BodyTableCell>
+                      <Button variant="contained" onClick={() => handleClick(creneau)} >
+                      {creneau.confirmed ? "Oui" : "Non"}
+                      </Button>
+                      </BodyTableCell>
+                    </TableRow>
+                  )
+                )}
               </TableBody>
             </Table>
           </div>

@@ -22,9 +22,7 @@ const StyledFlexBox = styled(FlexBox)(({ theme }) => ({
   },
 }));
 
-interface AppointmentsProps {
-  data:any;
-}
+
 
 const AppointmentsList: FC = () => {
   useTitle("Liste de mes rendez-vous");
@@ -50,6 +48,7 @@ const AppointmentsList: FC = () => {
         console.log("Aucune donnée de disponibilité trouvée.");
       }
     });
+  // eslint-disable-next-line 
   }, [uid]);
 
   return (
