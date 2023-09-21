@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { H5 } from "components/Typography";
 import ScrollBar from "simplebar-react";
+import { bool } from "yup";
 
 interface Creneau {
   start: string;
@@ -76,6 +77,7 @@ export default function AppointmentTable({
 
   const handleClick = (creneau:any) => {
     console.log(creneau.confirmed ? 'Oui' : 'Non');
+    
   }
 
   return (
@@ -113,19 +115,22 @@ export default function AppointmentTable({
                   )
                 )}
                 {(availabilityData[jour]?.soir.creneaux || []).map(
-                  (creneau: Creneau, index) => (
-                    <TableRow key={index}>
-                      <BodyTableCell>soir</BodyTableCell>
-                      <BodyTableCell>{creneau.start}</BodyTableCell>
-                      <BodyTableCell>{creneau.end}</BodyTableCell>
-                      <BodyTableCell>{creneau.reservedBy}</BodyTableCell>
-                      <BodyTableCell>
-                      <Button variant="contained" onClick={() => handleClick(creneau)} >
-                      {creneau.confirmed ? "Oui" : "Non"}
-                      </Button>
-                      </BodyTableCell>
-                    </TableRow>
-                  )
+                  (creneau: Creneau, index) => {
+                    
+                    return (
+                      <TableRow key={index}>
+                        <BodyTableCell>soir</BodyTableCell>
+                        <BodyTableCell>{creneau.start}</BodyTableCell>
+                        <BodyTableCell>{creneau.end}</BodyTableCell>
+                        <BodyTableCell>{creneau.reservedBy}</BodyTableCell>
+                        <BodyTableCell>
+                          <Button variant="contained" onClick={() => handleClick(creneau)}>
+                            {creneau.confirmed ? "Oui" : "Non"}
+                          </Button>
+                        </BodyTableCell>
+                      </TableRow>
+                    );
+                  }
                 )}
               </TableBody>
             </Table>
