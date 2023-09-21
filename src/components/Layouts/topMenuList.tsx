@@ -1,5 +1,5 @@
 import Icons from "icons/sidebar";
-import { ContactEmergencyOutlined , LocalHospitalOutlined} from "@mui/icons-material";
+import { ContactEmergencyOutlined , LocalHospitalOutlined, TaskAltOutlined} from "@mui/icons-material";
 const index = [
   {
     title: "Dashboard",
@@ -15,6 +15,11 @@ const index = [
     title: "update Profile",
     Icon: ContactEmergencyOutlined,
     path: "/dashboard/update-profile",
+  },
+  {
+    title: "appointments",
+    Icon: TaskAltOutlined,
+    path: "/dashboard/appointments",
   },
   {
     title: "Add Hospital",
