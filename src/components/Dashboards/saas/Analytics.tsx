@@ -8,7 +8,7 @@ import AnalyticsPopover from "./AnalyticsPopover";
 
 const data = {
   series: [75, 50, 25],
-  categories: ["Sales", "Orders", "Return"],
+  categories: ["Horaires", "Rdv", "Clients"],
 };
 
 const Analytics: FC = () => {
@@ -17,7 +17,7 @@ const Analytics: FC = () => {
   const chartOptions: ApexOptions = {
     chart: { background: "transparent" },
     colors: [theme.palette.primary.main, "#FF9777", "#FF6B93"],
-    labels: ["Sales", "Orders", "Return"],
+    labels: ["Horaires", "Rdv", "Clients"],
     plotOptions: {
       radialBar: {
         dataLabels: {
@@ -74,7 +74,7 @@ const Analytics: FC = () => {
       }}
     >
       <FlexBox alignItems="center" justifyContent="space-between">
-        <H5>Analytics</H5>
+        <H5>Analytique</H5>
         <AnalyticsPopover />
       </FlexBox>
 
