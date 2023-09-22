@@ -94,7 +94,7 @@ export default function AppointmentTable({
                   <HeadTableCell>Heure debut</HeadTableCell>
                   <HeadTableCell>Heure de fin</HeadTableCell>
                   <HeadTableCell>reserver par</HeadTableCell>
-                  <HeadTableCell>confirmation</HeadTableCell>
+                  {/* <HeadTableCell>confirmation</HeadTableCell> */}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -105,11 +105,11 @@ export default function AppointmentTable({
                       <BodyTableCell>{creneau.start}</BodyTableCell>
                       <BodyTableCell>{creneau.end}</BodyTableCell>
                       <BodyTableCell>{creneau.reservedBy}</BodyTableCell>
-                      <BodyTableCell>
-                      <Button variant="contained" onClick={() => handleClick(creneau)} >
+                      {/* <BodyTableCell>
+                       <Button variant="contained" onClick={() => handleClick(creneau)} >
                       {creneau.confirmed ? "Oui" : "Non"}
-                      </Button>
-                      </BodyTableCell>
+                      </Button> 
+                      </BodyTableCell> */}
                     </TableRow>
                   )
                 )}
@@ -122,11 +122,11 @@ export default function AppointmentTable({
                         <BodyTableCell>{creneau.start}</BodyTableCell>
                         <BodyTableCell>{creneau.end}</BodyTableCell>
                         <BodyTableCell>{creneau.reservedBy}</BodyTableCell>
-                        <BodyTableCell>
+                        {/* <BodyTableCell>
                           <Button variant="contained" onClick={() => handleClick(creneau)}>
                             {creneau.confirmed ? "Oui" : "Non"}
                           </Button>
-                        </BodyTableCell>
+                        </BodyTableCell> */}
                       </TableRow>
                     );
                   }

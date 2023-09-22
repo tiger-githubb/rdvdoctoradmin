@@ -72,7 +72,7 @@ const PostCard: FC<PostCardProps> = ({ post, handleMore }) => {
 
         {post.postImage && (
           <PostImageWrapper>
-            <img src={post.postImage} alt="Post One" width="100%" />
+            <img src="https://www.calendrier.best/images/mensuel/2023/septembre/calendrier-septembre-2023-semaine.jpg" alt="Post One" width="100%" />
           </PostImageWrapper>
         )}
 
