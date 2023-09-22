@@ -4,7 +4,6 @@ import SaaSCard from "components/Dashboards/saas/Card";
 import Footer from "components/Dashboards/saas/Footer";
 import TotalSpent from "components/Dashboards/saas/TotalSpent";
 import useTitle from "hooks/useTitle";
-import BucketIcon from "icons/BucketIcon";
 import EarningIcon from "icons/EarningIcon";
 import PeopleIcon from "icons/PeopleIcon";
 import WindowsLogoIcon from "icons/WindowsLogoIcon";
@@ -18,19 +17,19 @@ const SaaS: FC = () => {
 
   const cardList = [
     {
-      price: 521,
+      price: 21,
       title: "Horaires",
       Icon: EarningIcon,
       color: theme.palette.primary.purple,
     },
     {
-      price: 684,
+      price: 14,
       Icon: WindowsLogoIcon,
       title: "Rdv",
       color: theme.palette.primary.red,
     },
     {
-      price: 321,
+      price: 3,
       Icon: PeopleIcon,
       title: "Clients",
       color: theme.palette.primary.yellow,

@@ -1,6 +1,6 @@
 import { Box, Card, useTheme } from "@mui/material";
 import { ApexOptions } from "apexcharts";
-import { H2, H5 } from "components/Typography";
+import { H5 } from "components/Typography";
 import { FC } from "react";
 import Chart from "react-apexcharts";
 
@@ -122,8 +122,7 @@ const TotalSpent: FC = () => {
         [theme.breakpoints.down(425)]: { padding: "1.5rem" },
       }}
     >
-      <H5>Total Spent</H5>
-      <H2 color="primary.main">$682.5</H2>
+      <H5>Statistique</H5>
 
       <Box
         sx={{
