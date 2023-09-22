@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   styled,
   Table,
@@ -73,7 +72,7 @@ export default function AppointmentTable({
     "samedi",
     "dimanche",
   ];
-
+// eslint-disable-next-line
   const handleClick = (creneau:any) => {
     console.log(creneau.confirmed ? 'Oui' : 'Non');
     
