@@ -2,8 +2,6 @@ import { Box, Grid, useTheme } from "@mui/material";
 import Analytics from "components/Dashboards/saas/Analytics";
 import SaaSCard from "components/Dashboards/saas/Card";
 import Footer from "components/Dashboards/saas/Footer";
-import RecentOrders from "components/Dashboards/saas/RecentOrders";
-import TopSelling from "components/Dashboards/saas/TopSelling";
 import TotalSpent from "components/Dashboards/saas/TotalSpent";
 import useTitle from "hooks/useTitle";
 import BucketIcon from "icons/BucketIcon";
@@ -20,27 +18,21 @@ const SaaS: FC = () => {
 
   const cardList = [
     {
-      price: 574,
-      Icon: BucketIcon,
-      title: "All Spending",
-      color: theme.palette.primary.main,
-    },
-    {
       price: 521,
-      title: "Earnings",
+      title: "Horaires",
       Icon: EarningIcon,
       color: theme.palette.primary.purple,
     },
     {
       price: 684,
       Icon: WindowsLogoIcon,
-      title: "Weekly revenue",
+      title: "Rdv",
       color: theme.palette.primary.red,
     },
     {
       price: 321,
       Icon: PeopleIcon,
-      title: "New Clients",
+      title: "Clients",
       color: theme.palette.primary.yellow,
     },
   ];
@@ -49,7 +41,7 @@ const SaaS: FC = () => {
     <Box pt={2} pb={4}>
       <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
         {cardList.map((card, index) => (
-          <Grid item lg={3} xs={6} key={index}>
+          <Grid item lg={4} xs={6} key={index}> 
             <SaaSCard card={card} />
           </Grid>
         ))}
@@ -62,14 +54,6 @@ const SaaS: FC = () => {
         <Grid item lg={4} md={5} xs={12}>
           <Analytics />
         </Grid>
-
-        <Grid item lg={8} md={7} xs={12}>
-          <RecentOrders />
-        </Grid>
-        <Grid item lg={4} md={5} xs={12}>
-          <TopSelling />
-        </Grid>
-
         <Grid item xs={12}>
           <Footer imageLink="/static/illustration/sass-dashboard.svg" />
         </Grid>

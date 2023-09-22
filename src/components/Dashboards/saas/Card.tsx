@@ -2,7 +2,6 @@ import { alpha, Box, Card, styled } from "@mui/material";
 import { H3, H5 } from "components/Typography";
 import { FC } from "react";
 
-// root component interface
 interface SaaSCardProps {
   card: any;
 }
@@ -10,7 +9,7 @@ interface SaaSCardProps {
 const StyledCard = styled(Card)(({ theme }) => ({
   padding: "2rem 1.5rem",
   display: "flex",
-  alignItems: "center",
+  alignItems: "center", 
   height: "100%",
   [theme.breakpoints.down("sm")]: {
     padding: "1.5rem",
@@ -44,7 +43,7 @@ const SaaSCard: FC<SaaSCardProps> = ({ card }) => {
       </Box>
       <Box mt={{ xs: "1rem", sm: 0 }}>
         <H5 color="text.disabled">{title}</H5>
-        <H3>${price}</H3>
+        <H3>{price}</H3>
       </Box>
     </StyledCard>
   );

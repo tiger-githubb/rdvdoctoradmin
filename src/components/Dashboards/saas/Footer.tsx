@@ -24,12 +24,12 @@ const Footer: FC<FooterProps> = ({ imageLink }) => {
   return (
     <StyledCard>
       <Box>
-        <H1 fontSize={24}>Uko Dashboard & UI kit</H1>
+        <H1 fontSize={24}>Rdv Doctor</H1>
         <Paragraph fontSize={13} color="secondary.400" fontWeight="500">
-          Clean design & code for your next project.
+          Retourner sur le site officiel
         </Paragraph>
         <Button variant="contained" size="small" sx={{ mt: "2rem" }}>
-          Buy Now
+          RDV Doctor
         </Button>
       </Box>
 
