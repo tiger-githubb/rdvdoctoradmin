@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import { H5 } from "components/Typography";
 import ScrollBar from "simplebar-react";
-import { bool } from "yup";
 
 interface Creneau {
   start: string;

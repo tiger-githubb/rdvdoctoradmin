@@ -43,14 +43,14 @@ const Register: FC = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Name is required"),
+    name: Yup.string().required("Le nom est requis"),
     email: Yup.string()
-      .email("Must be a valid email")
+      .email("Doit être un e-mail valide")
       .max(255)
-      .required("Email is required"),
+      .required("Un e-mail est requis"),
     password: Yup.string()
-      .min(6, "Password should be of minimum 6 characters length")
-      .required("Password is required"),
+      .min(6, "Le mot de passe doit être de la longueur minimale de 6 caractères")
+      .required("Mot de passe requis"),
   });
 
   
@@ -88,7 +88,7 @@ const Register: FC = () => {
           localStorage.setItem('user', JSON.stringify(userData));
       
           setLoading(false);
-          toast.success("You registered successfully");
+          toast.success("Vous vous êtes inscrit avec succès");
           navigate("/dashboard"); 
         } catch (error) {
           // setError(error.message);
@@ -117,22 +117,20 @@ const Register: FC = () => {
             <img src="/static/logo/logo.svg" width="100%" alt="Uko Logo" />
           </Box>
           <H1 fontSize={24} fontWeight={700}>
-            Get started with Uko
+            S'inscrire sur RDV Doctor
           </H1>
         </FlexBox>
 
         <FlexBox justifyContent="space-between" flexWrap="wrap" my="1rem">
          <SocialIconButton
-            // onClick={loginWithGoogle}
             startIcon={<GoogleIcon sx={{ mr: "0.5rem" }} />}
           >
-            Sign up with Google
+            Google
           </SocialIconButton> 
           <SocialIconButton
-            // onClick={loginWithFacebook}
             startIcon={<FacebookIcon sx={{ mr: "0.5rem" }} />}
           >
-            Sign up with Facebook
+            Facebook
           </SocialIconButton>
 
           <Divider sx={{ my: 3, width: "100%", alignItems: "flex-start" }}>
@@ -195,7 +193,7 @@ const Register: FC = () => {
                   name="terms"
                 />
               }
-              label="I agree to terms & conditions"
+              label="J'accepte les conditions générales"
               sx={{
                 marginTop: "0.5rem",
                 "& .MuiTypography-root": { fontWeight: 600 },
@@ -219,20 +217,20 @@ const Register: FC = () => {
             <Box sx={{ mt: 4 }}>
               {loading ? (
                 <LoadingButton loading fullWidth variant="contained">
-                  Sign Up
+                 S'inscrire
                 </LoadingButton>
               ) : (
                 <Button fullWidth type="submit" variant="contained">
-                  Sign Up
+                  S'inscrire
                 </Button>
               )}
             </Box>
           </form>
 
           <Small margin="auto" mt={3} color="text.disabled">
-            Do you already have an account?{" "}
+           Avez-vous déjà un compte?{" "}
             <Link to="/login">
-              <Small color="primary.main">Log in</Small>
+              <Small color="primary.main">Se connecter</Small>
             </Link>
           </Small>
         </FlexBox>
