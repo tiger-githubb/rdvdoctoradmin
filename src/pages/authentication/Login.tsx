@@ -39,11 +39,11 @@ const Login: FC = () => {
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .email("Must be a valid email")
+      .email("Doit être un e-mail valide")
       .max(255)
-      .required("Email is required"),
+      .required("Un e-mail est requis"),
     password: Yup.string()
-      .required("Password is required"),
+      .required("Mot de passe requis"),
   });
 
   const { errors, values, touched, handleBlur, handleChange, handleSubmit } =
@@ -60,10 +60,10 @@ const Login: FC = () => {
           localStorage.setItem('token', token);
       
           setLoading(false);
-          toast.success("Logged in successfully");
+          toast.success("Connecté avec succès");
           navigate("/dashboard"); 
         } catch (error) {
-          setError("Invalid email or password"); 
+          setError("email ou mot de passe invalide"); 
           setLoading(false);
         }
       },
@@ -90,7 +90,7 @@ const Login: FC = () => {
             <img src="/static/logo/logo.svg" width="100%" alt="Uko Logo" />
           </Box>
           <H1 fontSize={24} fontWeight={700}>
-            Sign In to Uko
+            Connectez-vous à Rdv Doctor
           </H1>
         </FlexBox>
 
@@ -99,18 +99,18 @@ const Login: FC = () => {
             // onClick={loginWithGoogle}
             startIcon={<GoogleIcon sx={{ mr: 1 }} />}
           >
-            Sign in with Google
+            Google
           </SocialIconButton>
           <SocialIconButton
             // onClick={loginWithFacebook}
             startIcon={<FacebookIcon sx={{ mr: 1 }} />}
           >
-            Sign in with Facebook
+            Facebook
           </SocialIconButton>
 
           <Divider sx={{ my: 3, width: "100%", alignItems: "flex-start" }}>
             <H3 color="text.disabled" px={1}>
-              Or
+              Ou
             </H3>
           </Divider>
 
@@ -134,7 +134,7 @@ const Login: FC = () => {
 
               <TextFieldWrapper>
                 <Paragraph fontWeight={600} mb={1}>
-                  Password
+                  Mot de passe
                 </Paragraph>
                 <LightTextField
                   fullWidth
@@ -157,11 +157,11 @@ const Login: FC = () => {
                     onChange={handleChange}
                   />
                 }
-                label="Remember Me"
+                label="Se souvenir de moi"
                 sx={{ "& .MuiTypography-root": { fontWeight: 600 } }}
               />
               <Link to="/forget-password">
-                <Small color="secondary.red">Forgot Password?</Small>
+                <Small color="secondary.red">Mot de passe oublié?</Small>
               </Link>
             </FlexBox>
 
@@ -182,20 +182,20 @@ const Login: FC = () => {
             <Box sx={{ mt: 4 }}>
               {loading ? (
                 <LoadingButton loading fullWidth variant="contained">
-                  Sign In
+                  Se connecter
                 </LoadingButton>
               ) : (
                 <Button fullWidth type="submit" variant="contained">
-                  Sign In
+                  Se connecter
                 </Button>
               )}
             </Box>
           </form>
 
           <Small margin="auto" mt={3} color="text.disabled">
-            Don't have an account?{" "}
+            Vous n'avez pas de compte?{" "}
             <Link to="/register">
-              <Small color="primary.main">Create an account</Small>
+              <Small color="primary.main">Créer un compte</Small>
             </Link>
           </Small>
         </FlexBox>

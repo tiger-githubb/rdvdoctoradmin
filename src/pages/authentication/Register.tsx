@@ -89,7 +89,7 @@ const Register: FC = () => {
       
           setLoading(false);
           toast.success("You registered successfully");
-          navigate("/dashboard"); // Rediriger vers la page appropriée après l'inscription
+          navigate("/dashboard"); 
         } catch (error) {
           // setError(error.message);
           setLoading(false);
