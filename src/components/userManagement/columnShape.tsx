@@ -38,11 +38,6 @@ const UserListColumnShape = [
     ),
   },
   {
-    Header: "Spécialité",
-    accessor: "speciality", // Utilisez le nom de la clé dans Firestore
-    minWidth: 150,
-  },
-  {
     Header: "Numero de télephone",
     accessor: "phone_number", // Utilisez le nom de la clé dans Firestore
     minWidth: 150,

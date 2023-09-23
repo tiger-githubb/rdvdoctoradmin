@@ -53,7 +53,10 @@ const UserList: FC = () => {
       usersSnapshot.forEach((doc) => {
         const userData = doc.data();
         console.log(userData);
-        userDataArray.push(userData as UserData);
+        if (userData.role === 2 ) {
+          userDataArray.push(userData as UserData);
+        }
+        
       });
 
       setUsersData(userDataArray);
