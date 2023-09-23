@@ -14,6 +14,7 @@ interface Creneau {
   start: string;
   end: string;
   reservedBy: string;
+  userName:string;
   confirmed: boolean;
 }
 
@@ -103,7 +104,7 @@ export default function AppointmentTable({
                       <BodyTableCell>matin</BodyTableCell>
                       <BodyTableCell>{creneau.start}</BodyTableCell>
                       <BodyTableCell>{creneau.end}</BodyTableCell>
-                      <BodyTableCell>{creneau.reservedBy}</BodyTableCell>
+                      <BodyTableCell>{creneau.userName}</BodyTableCell>
                       {/* <BodyTableCell>
                        <Button variant="contained" onClick={() => handleClick(creneau)} >
                       {creneau.confirmed ? "Oui" : "Non"}
@@ -120,7 +121,7 @@ export default function AppointmentTable({
                         <BodyTableCell>soir</BodyTableCell>
                         <BodyTableCell>{creneau.start}</BodyTableCell>
                         <BodyTableCell>{creneau.end}</BodyTableCell>
-                        <BodyTableCell>{creneau.reservedBy}</BodyTableCell>
+                        <BodyTableCell>{creneau.userName}</BodyTableCell>
                         {/* <BodyTableCell>
                           <Button variant="contained" onClick={() => handleClick(creneau)}>
                             {creneau.confirmed ? "Oui" : "Non"}
